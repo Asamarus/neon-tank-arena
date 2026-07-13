@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta
+      name="theme-color"
+      content="#050a11"
+    />
+    <meta
+      name="color-scheme"
+      content="dark"
+    />
+    <meta
+      name="description"
+      content="Neon Tank Arena is an installable, fully offline top-down Canvas tank game with procedural levels, bosses, upgrades, hazards, gadgets, bonuses, and adaptive rendering."
+    />
+    <meta
+      name="application-name"
+      content="Neon Tank Arena"
+    />
+    <meta
+      name="app-version"
+      content="1.0.0"
+    />
+    <meta
+      name="mobile-web-app-capable"
+      content="yes"
+    />
+    <meta
+      name="apple-mobile-web-app-capable"
+      content="yes"
+    />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Tank Arena"
+    />
+    <meta
+      name="msapplication-TileColor"
+      content="#050a11"
+    />
+
+    <title>Neon Tank Arena</title>
+
+    <link
+      rel="manifest"
+      href="./manifest.webmanifest"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./icons/favicon-32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./icons/favicon-16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./icons/apple-touch-icon.png"
+    />
+    <script type="module" crossorigin src="/neon-tank-arena/assets/index-DdpvedTW.js"></script>
+    <link rel="stylesheet" crossorigin href="/neon-tank-arena/assets/index-CxTqSiOJ.css">
+  </head>
+  <body>
+    <div
+      id="game-shell"
+      aria-label="Neon Tank Arena game"
+    >
+      <canvas
+        id="gameCanvas"
+        tabindex="0"
+        aria-label="Top-down tank battle arena"
+      ></canvas>
+
+      <header
+        class="hud"
+        aria-live="polite"
+      >
+        <div class="brand">
+          <span class="brand__mark">NT</span>
+          <span>
+            <strong>NEON TANK ARENA</strong>
+            <small id="themeValue">DESERT OUTPOST</small>
+          </span>
+        </div>
+
+        <div class="stats">
+          <span>LEVEL <strong id="levelValue">1</strong></span>
+          <span>SCORE <strong id="scoreValue">0</strong></span>
+          <span>LIVES <strong>∞</strong></span>
+          <span>ENEMIES <strong id="enemyValue">0</strong></span>
+          <span>COMBO <strong id="comboValue">×1.0</strong></span>
+        </div>
+
+        <div class="hud-actions">
+          <button
+            id="installButton"
+            class="icon-button pwa-action"
+            type="button"
+            aria-label="Install Neon Tank Arena"
+            title="Install app"
+            hidden
+          >
+            ＋
+          </button>
+          <button
+            id="updateButton"
+            class="icon-button pwa-action is-update"
+            type="button"
+            aria-label="Install game update"
+            title="Update available"
+            hidden
+          >
+            ↻
+          </button>
+          <button
+            id="soundButton"
+            class="icon-button"
+            type="button"
+            aria-label="Mute sound effects"
+          >
+            ♪
+          </button>
+          <button
+            id="pauseButton"
+            class="icon-button"
+            type="button"
+            aria-label="Pause game"
+          >
+            Ⅱ
+          </button>
+        </div>
+      </header>
+
+      <div
+        class="health-panel"
+        aria-label="Tank health"
+      >
+        <span>ARMOR</span>
+        <div class="health-track"><i id="healthFill"></i></div>
+        <strong id="healthValue">100</strong>
+      </div>
+
+      <div
+        class="bonus-panel"
+        aria-label="Active bonus status"
+      >
+        <span>CRATES</span>
+        <strong id="bonusValue">0 BONUS · 1 UPGRADE</strong>
+      </div>
+
+      <nav
+        class="gadget-bar"
+        aria-label="Deploy gadgets"
+      >
+        <button
+          type="button"
+          data-gadget="mine"
+        >
+          <kbd>Z</kbd><span>Proximity Mine</span><small>×4</small>
+        </button>
+        <button
+          type="button"
+          data-gadget="stasis"
+        >
+          <kbd>X</kbd><span>Stasis Field</span><small>×2</small>
+        </button>
+        <button
+          type="button"
+          data-gadget="barrier"
+        >
+          <kbd>C</kbd><span>Laser Barrier</span><small>×2</small>
+        </button>
+      </nav>
+
+      <nav
+        id="weaponBar"
+        class="weapon-bar"
+        aria-label="Choose weapon"
+      >
+        <button
+          type="button"
+          data-weapon="0"
+        >
+          <kbd>1</kbd><span>Cannon <small data-upgrade-level="0">L0/30</small></span>
+        </button>
+        <button
+          type="button"
+          data-weapon="1"
+        >
+          <kbd>2</kbd><span>Pulse <small data-upgrade-level="1">L0/30</small></span>
+        </button>
+        <button
+          type="button"
+          data-weapon="2"
+        >
+          <kbd>3</kbd><span>Scatter <small data-upgrade-level="2">L0/30</small></span>
+        </button>
+        <button
+          type="button"
+          data-weapon="3"
+        >
+          <kbd>4</kbd><span>Seeker <small data-upgrade-level="3">L0/30</small></span>
+        </button>
+        <button
+          type="button"
+          data-weapon="4"
+        >
+          <kbd>5</kbd><span>Mortar <small data-upgrade-level="4">L0/30</small></span>
+        </button>
+      </nav>
+
+      <section
+        id="messagePanel"
+        class="message-panel is-visible"
+      >
+        <span class="build-badge">V1 · PARITY ASSAULT</span>
+        <h1>NEON TANK ARENA</h1>
+        <p>
+          Enemy navigation now escapes corners, enemy weapons scale with every arena and track
+          player progression, and the fully restored shieldless Siege Titan brings back the original
+          boss intensity. The complete campaign remains installable and offline-ready.
+        </p>
+        <div class="controls-copy">
+          <span
+            ><b>Desktop</b> WASD / arrows move · mouse aims · click/space fires · 1–5 weapons ·
+            Z/X/C gadgets</span
+          >
+          <span><b>Mobile</b> twin-stick controls · tap weapons and gadget buttons</span>
+        </div>
+        <div class="menu-actions">
+          <button
+            id="newGameButton"
+            type="button"
+          >
+            START NEW GAME
+          </button>
+          <button
+            id="startButton"
+            type="button"
+            hidden
+          >
+            RESUME
+          </button>
+        </div>
+      </section>
+
+      <output
+        id="pwaStatus"
+        class="pwa-status"
+        aria-live="polite"
+        hidden
+      ></output>
+      <output
+        id="toast"
+        class="toast"
+        aria-live="polite"
+      ></output>
+    </div>
+    <noscript>
+      <div class="noscript-message">
+        Neon Tank Arena requires JavaScript. Enable it once; after the first successful load, the
+        installed game works offline.
+      </div>
+    </noscript>
+    <script src="./version.js"></script>
+  </body>
+</html>
