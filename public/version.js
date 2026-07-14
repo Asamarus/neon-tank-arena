@@ -6,7 +6,7 @@
  * the browser's service-worker update algorithm to detect a new build.
  */
 globalThis.NTA_BUILD = Object.freeze({
-  version: '1.0.0',
+  version: '1.0.1',
   publishedAt: '2026-07-14',
   cachePrefix: 'neon-tank-arena',
 
